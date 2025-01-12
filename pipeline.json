@@ -1,0 +1,43 @@
+{
+    "forest_param_grid": {
+        "n_estimators": [2, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "criterion": ["entropy"],
+        "max_depth": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25],
+        "min_samples_split": [2],
+        "min_samples_leaf": [1],
+        "bootstrap": [false]
+    },
+
+    "datasets": [
+        {"id": "breast_cancer", "classes": [1, 0]}
+    ],
+
+    "attack_pipeline": {
+        "budget": 0.1,
+        "test_size": 0.2,
+        "random_state": null,
+        "decorate_syntheses": true,
+        "summarize": true,
+        "verbose": true,
+        "methods": ["random"]
+    },
+
+    "defences": [
+        { 
+            "kind": "bagging", 
+            "param_grid": {
+                "npartition": [10, 20, 30, 40, 50],
+                "psize": [0.2, 0.1, 0.02, 0.01, 0.005]
+            } 
+        },
+        
+        { 
+            "kind": "knn", 
+            "param_grid": {
+                "nneighbors":[4, 8, 12],
+                "rounds":[1, 3, 5],
+                "nu":[0.6, 0.75, 0.9]
+            } 
+        }
+    ]
+}
