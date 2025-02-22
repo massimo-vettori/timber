@@ -112,6 +112,11 @@ class Annotator:
         LOGGER.debug(f"[Annotator]: Summarizing {len(synthesis.poisoned)} instances into 10 groups for {synthesis.name}")
         progress = tqdm(total=10, desc="Summarizing", unit="data point")
 
+        # Add an initial line to the summary dataframe, to indiate the performance of the model before
+        # poisoning
+        first: Annotator.AnnotatedInstance = synthesis.poisoned[0] # type: ignore
+        df.loc[len(df)] = [0, first.train_f1, first.train_acc, first.test_f1, first.test_acc]
+
         for chunk in range(10):
             start = chunk * size
             end = start + size if chunk != 9 else len(synthesis.poisoned)

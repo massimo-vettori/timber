@@ -9,7 +9,10 @@
     },
 
     "datasets": [
-        {"id": "breast_cancer", "classes": [1, 0]}
+        {"id": "spam", "classes": [1, 0]},
+        {"id": "musk2", "classes": [1, 0]},
+        {"id": "winecolor", "classes": [1, 0]}
+
     ],
 
     "attack_pipeline": {
@@ -19,7 +22,7 @@
         "decorate_syntheses": true,
         "summarize": true,
         "verbose": true,
-        "methods": ["random"]
+        "methods": ["tes"]
     },
 
     "defences": [

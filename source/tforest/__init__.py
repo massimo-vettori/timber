@@ -51,8 +51,6 @@ def rtimber(
     instances = []
 
     runtime = 0
-
-    prevscore = None
     lastloss = None
 
     for k in tqdm(range(budget), leave=False):
@@ -60,13 +58,7 @@ def rtimber(
 
         forest = TForestClassifier(**tree_params)
         forest.fit(xp, yp)
-        error = forest.compute_error(xv, yv)
 
-        if prevscore is not None and lastloss is not None:
-            if error - prevscore != lastloss:
-                LOGGER.warning(f"Score mismatch: {error} - {prevscore} != {lastloss}")
-
-        prevscore = error
         bundles = forest.get_stable_path_bundles(yp)
         bundles = StablePathBundle.sort(bundles) if early_stop else bundles
         validbundles = [b for b in bundles if b.get_target(forest) not in selected and b.label == target]
